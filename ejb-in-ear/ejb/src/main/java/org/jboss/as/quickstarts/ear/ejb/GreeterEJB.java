@@ -18,6 +18,9 @@ package org.jboss.as.quickstarts.ear.ejb;
 
 import javax.ejb.Stateful;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 /**
  * A simple Hello World EJB. The EJB does not use an interface.
  *
@@ -25,14 +28,16 @@ import javax.ejb.Stateful;
  */
 @Stateful
 public class GreeterEJB {
-    /**
-     * This method takes a name and returns a personalised greeting.
-     *
-     * @param name
-     *            the name of the person to be greeted
-     * @return the personalised greeting.
-     */
-    public String sayHello(String name) {
-        return "Hello " + name;
-    }
+	/**
+	 * This method takes a name and returns a personalised greeting.
+	 *
+	 * @param name
+	 *            the name of the person to be greeted
+	 * @return the personalised greeting.
+	 */
+	public String sayHello(String name) {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:/app-context.xml");
+		String bean = (String) ac.getBean("myBean");
+		return "Hello " + name + ". " + bean;
+	}
 }
