@@ -18,6 +18,8 @@ package org.jboss.as.quickstarts.ear.ejb;
 
 import javax.ejb.Stateful;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -28,6 +30,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 @Stateful
 public class GreeterEJB {
+	static final Logger LOG = LoggerFactory.getLogger(GreeterEJB.class);
+
 	/**
 	 * This method takes a name and returns a personalised greeting.
 	 *
@@ -36,6 +40,7 @@ public class GreeterEJB {
 	 * @return the personalised greeting.
 	 */
 	public String sayHello(String name) {
+		LOG.debug("sayHello() {}", name);
 		ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:/app-context.xml");
 		String bean = (String) ac.getBean("myBean");
 		return "Hello " + name + ". " + bean;
